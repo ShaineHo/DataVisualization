@@ -1,0 +1,26 @@
+variable ,description,type
+year,The year movie was released,Integer
+title,The title of the movie.,Character
+clean_test,Result of the Bechdel test with 5 levels,Factor
+binary,Binary result of the Bechdel test,Factor
+budget_2013,Inflation adjusted budget of the movie in 2013 dollars,Numeric
+domgross_2013,Inflation adjusted domestic gross of the movie in 2013 dollars,Numeric
+intgross_2013,Inflation adjusted international gross of the movie in 2013 dollars,Numeric
+imdb_id,Unique ID for each movie,Character
+language1,The language 1 of the movie,Factor
+language2,The language 2 of the movie,Factor
+language3,The language 3 of the movie,Factor
+country1,The country 1 of the movie,Factor
+country2,The country 2 of the movie,Factor
+country3,The country 3 of the movie,Factor
+metascore,Metascore of the movie,Numeric
+imdb_rating,IMDb rating of the movie,Numeric
+director1,The first director of the movie,Factor
+director2,The second director of the movie,Factor
+director3,The third director of the movie,Factor
+genre1,The first genre 1 of the movie,Factor
+genre2,The first genre 2 of the movie,Factor
+genre3,The first genre 3 of the movie,Factor
+runtime,The runtime of the movie in minutes,Numeric
+poster,The http address of the poster of the movie,Character
+imdb_votes,The number of IMDb votes of the movie,Numeric

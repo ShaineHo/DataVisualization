@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>6335GroupPresentation</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Group18" />
+    <meta name="date" content="2022-11-19" />
+    <script src="6335Presentation_files/header-attrs-2.14/header-attrs.js"></script>
+    <link href="6335Presentation_files/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="6335Presentation_files/panelset-0.2.6/panelset.js"></script>
+    <script src="6335Presentation_files/kePrint-0.0.1/kePrint.js"></script>
+    <link href="6335Presentation_files/lightable-0.0.1/lightable.css" rel="stylesheet" />
+    <script src="6335Presentation_files/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+    <script src="6335Presentation_files/plotly-binding-4.10.0/plotly.js"></script>
+    <script src="6335Presentation_files/typedarray-0.1/typedarray.min.js"></script>
+    <script src="6335Presentation_files/jquery-3.5.1/jquery.min.js"></script>
+    <link href="6335Presentation_files/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+    <script src="6335Presentation_files/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+    <link href="6335Presentation_files/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
+    <script src="6335Presentation_files/plotly-main-2.5.1/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+class: center, bottom, inverse
+
+background-image: url(plots/bechdeltestcartoon.jpeg)
+
+background-position: top
+
+## Studies of Bechdel Test 
+
+#### HE Qiu, HO Yin Shan, LYU Rui, SI Wen, SUN Weichen
+
+#### 2022-11-19
+
+---
+
+
+
+
+
+
+
+
+&lt;style type="text/css"&gt;
+.pull-right{width: 40%;}
+.pull-left{width: 60%}
+.font-color{color: #1F3065}
+&lt;/style&gt;
+
+## Presentation Contents
+
+.pull-left[
+
+### - Introduction
+
+
+### - Data Description
+
+
+### - Bechdel Results Analysis:
+.font-color[
+1. IMDB Ratings
+2. Time Change
+3. Region
+4. Genre 
+5. Runtime
+6. Budget &amp; ROI
+]
+
+
+### - Conclusion &amp; Limitations
+
+
+### - References
+]
+
+.pull-right[
+&lt;img src= "plots/bechdelmeme.jpeg"&gt;
+]
+
+---
+
+## Introduction
+
+--
+- A technique to evaluate female participation in a movie
+
+--
+
+- Origin from a comic 'Dykes to Watch Out For' (1985)
+
+--
+
+- Named after the cartoonist Alison Bechdel
+
+--
+
+- Reflect gender bias in a movie
+
+--
+
+## Criteria of passing the test
+--
+&lt;img src= "plots/BechdelTest.jpeg" width = "90%"&gt; 
+
+---
+
+
+.pull-left[
+
+### Data Overview
+
+&lt;img src="6335Presentation_files/figure-html/unnamed-chunk-3-1.png" width="80%" /&gt;
+
+
+
+- Topic from **TidyTuesday**
+- Data Source: **GitHub**
+- **movies.csv** : 8839 x 5
+- **raw_bechdel.csv** : 1794 x 34
+
+]
+
+.pull-right[
+
+### Data Dictionary
+
+&lt;div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; "&gt;&lt;table class="table table-striped" style="font-size: 12px; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;color: white !important;background-color: #277BC0 !important;position: sticky; top:0; background-color: #FFFFFF;"&gt; Variables &lt;/th&gt;
+   &lt;th style="text-align:center;color: white !important;background-color: #277BC0 !important;position: sticky; top:0; background-color: #FFFFFF;"&gt; Description &lt;/th&gt;
+   &lt;th style="text-align:center;color: white !important;background-color: #277BC0 !important;position: sticky; top:0; background-color: #FFFFFF;"&gt; Type &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; year &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; The year movie was released &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; Integer &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; title &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; The title of the movie. &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; Character &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; clean_test &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; Result of the Bechdel test with 5 levels &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; Factor &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; binary &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; Binary result of the Bechdel test &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; Factor &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; budget_2013 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; Inflation adjusted budget of the movie in 2013 dollars &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; Numeric &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; domgross_2013 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; Inflation adjusted domestic gross of the movie in 2013 dollars &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; Numeric &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; intgross_2013 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; Inflation adjusted international gross of the movie in 2013 dollars &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; Numeric &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; imdb_id &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; Unique ID for each movie &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; Character &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; language1 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; The language 1 of the movie &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; Factor &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; language2 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; The language 2 of the movie &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; Factor &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; language3 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; The language 3 of the movie &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; Factor &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; country1 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; The country 1 of the movie &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; Factor &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; country2 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; The country 2 of the movie &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; Factor &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; country3 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; The country 3 of the movie &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; Factor &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; metascore &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; Metascore of the movie &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; Numeric &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; imdb_rating &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; IMDb rating of the movie &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; Numeric &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; director1 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; The first director of the movie &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; Factor &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; director2 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; The second director of the movie &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; Factor &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; director3 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; The third director of the movie &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; Factor &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; genre1 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; The first genre 1 of the movie &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; Factor &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; genre2 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; The first genre 2 of the movie &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; Factor &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; genre3 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; The first genre 3 of the movie &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; Factor &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; runtime &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; The runtime of the movie in minutes &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; Numeric &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; poster &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; The http address of the poster of the movie &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; Character &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; imdb_votes &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; The number of IMDb votes of the movie &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: white !important;"&gt; Numeric &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;&lt;/div&gt;
+
+]
+
+---
+
+.panelset[
+
+.panel[.panel-name[Overview of the test]
+
+&lt;img src= "plots/Inception.jpeg" width = "24%"&gt; &lt;img src= "plots/shawshank.jpeg" width = "24%"&gt; &lt;img src= "plots/darkknight.jpeg" width = "24%"&gt; &lt;img src= "plots/lotr.jpeg" width = "24%"&gt;
+
+&lt;img src= "plots/gump.webp" width = "49%"&gt; &lt;img src= "plots/starwars.jpeg" width = "49%"&gt; 
+
+]
+
+.panel[.panel-name[Analysis]
+
+<div id="htmlwidget-d4a5544688a5236bd459" style="width:100%;height:504px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d4a5544688a5236bd459">{"x":{"data":[{"x":[2005.17411036808,2005.02615143284,1993.98277286533,2005.18357952461,2001.96273403782,1992.72142252643,1998.85329376981,2004.99814281818,1995.6502284091,2010.0468882082,2009.64607867859,2005.8946835896,1994.23878717236,1971.95314598959,2007.76114092972,1998.75825387556,2000.75749335382,2003.16396382805,2009.63420847636,1993.82654449977,2001.9889095543,1980.14240360726,1990.01177646723,1995.18831754085,1994.60623255372,2012.20329021029,2000.16307942364,1998.13462904375,1998.16169747245,1980.93532251623,1999.99285185821,2005.69008888192,2011.60393582992,2006.27469046637,1998.90632844586],"y":[2.09845551606268,2.81092718338594,3.01901154188439,3.374687597882,3.7137794245407,4.01079085092992,4.02147318594158,4.09608449120074,4.19817843031138,4.372976601962,4.382514523305,4.40475852971897,9.33084740921855,9.22085819903761,9.03422459198162,8.88415239201859,8.9027744952403,8.92105123627931,8.78656345712021,8.77637062966824,8.81308439962566,8.82178415749222,8.81628943234682,8.7098501550965,8.73635522674769,8.60999567549676,8.57891732642427,8.63242265293375,8.58468266751617,8.6317367891781,8.50059397306293,8.48925187731162,8.50289859503508,8.47447832936421,8.47288803318515],"text":["year: 2005<br />imdb_rating: 2.1<br />binary: FAIL<br />budget_2013: 119303313<br />Son of the Mask","year: 2005<br />imdb_rating: 2.8<br />binary: FAIL<br />budget_2013:  29825828<br />BloodRayne","year: 1994<br />imdb_rating: 3.0<br />binary: FAIL<br />budget_2013:  15716647<br />Police Academy: Mission to Moscow","year: 2005<br />imdb_rating: 3.4<br />binary: FAIL<br />budget_2013:  59651656<br />The Adventures of Sharkboy and Lavagirl 3-D","year: 2002<br />imdb_rating: 3.7<br />binary: FAIL<br />budget_2013: 129517922<br />The Adventures of Pluto Nash","year: 1993<br />imdb_rating: 4.0<br />binary: FAIL<br />budget_2013:  67723274<br />Super Mario Bros.","year: 1999<br />imdb_rating: 4.0<br />binary: FAIL<br />budget_2013:  41953861<br />Wing Commander","year: 2005<br />imdb_rating: 4.1<br />binary: FAIL<br />budget_2013:  23860663<br />Boogeyman","year: 1996<br />imdb_rating: 4.2<br />binary: FAIL<br />budget_2013:  74258246<br />Striptease","year: 2010<br />imdb_rating: 4.4<br />binary: FAIL<br />budget_2013: 160234776<br />The Last Airbender","year: 2010<br />imdb_rating: 4.4<br />binary: FAIL<br />budget_2013:  10682318<br />Skyline","year: 2006<br />imdb_rating: 4.4<br />binary: FAIL<br />budget_2013:  34673890<br />Ultraviolet","year: 1994<br />imdb_rating: 9.3<br />binary: FAIL<br />budget_2013:  39291617<br />The Shawshank Redemption","year: 1972<br />imdb_rating: 9.2<br />binary: FAIL<br />budget_2013:  39004975<br />The Godfather","year: 2008<br />imdb_rating: 9.0<br />binary: FAIL<br />budget_2013: 200217418<br />The Dark Knight","year: 1999<br />imdb_rating: 8.9<br />binary: FAIL<br />budget_2013:  90900032<br />Fight Club","year: 2001<br />imdb_rating: 8.9<br />binary: FAIL<br />budget_2013: 143427209<br />The Lord of the Rings: The Fellowship of the Ring","year: 2003<br />imdb_rating: 8.9<br />binary: FAIL<br />budget_2013: 119012174<br />The Lord of the Rings: The Return of the King","year: 2010<br />imdb_rating: 8.8<br />binary: FAIL<br />budget_2013: 170917095<br />Inception","year: 1994<br />imdb_rating: 8.8<br />binary: FAIL<br />budget_2013:  86441558<br />Forrest Gump","year: 2002<br />imdb_rating: 8.8<br />binary: FAIL<br />budget_2013: 121746846<br />The Lord of the Rings: The Two Towers","year: 1980<br />imdb_rating: 8.8<br />binary: FAIL<br />budget_2013:  65038661<br />Star Wars: Episode V - The Empire Strikes Back","year: 1990<br />imdb_rating: 8.8<br />binary: FAIL<br />budget_2013:  44574385<br />Goodfellas","year: 1995<br />imdb_rating: 8.7<br />binary: FAIL<br />budget_2013:  45863384<br />Se7en","year: 1995<br />imdb_rating: 8.7<br />binary: FAIL<br />budget_2013:   9172677<br />The Usual Suspects","year: 2012<br />imdb_rating: 8.6<br />binary: FAIL<br />budget_2013: 279025606<br />The Dark Knight Rises","year: 2000<br />imdb_rating: 8.6<br />binary: FAIL<br />budget_2013:   6764542<br />Memento","year: 1998<br />imdb_rating: 8.6<br />binary: FAIL<br />budget_2013:  92893600<br />Saving Private Ryan","year: 1998<br />imdb_rating: 8.6<br />binary: FAIL<br />budget_2013:  14291323<br />American History X","year: 1981<br />imdb_rating: 8.6<br />binary: FAIL<br />budget_2013:  51237724<br />Raiders of the Lost Ark","year: 2000<br />imdb_rating: 8.5<br />binary: FAIL<br />budget_2013: 139349563<br />Gladiator","year: 2006<br />imdb_rating: 8.5<br />binary: FAIL<br />budget_2013: 104021671<br />The Departed","year: 2012<br />imdb_rating: 8.5<br />binary: FAIL<br />budget_2013: 101463857<br />Django Unchained","year: 2006<br />imdb_rating: 8.5<br />binary: FAIL<br />budget_2013:  46231854<br />The Prestige","year: 1999<br />imdb_rating: 8.5<br />binary: FAIL<br />budget_2013:  83907722<br />The Green Mile"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(169,50,38,1)","opacity":1,"size":[16.1062647922469,9.86307847618123,8.12527901109746,12.4583837251278,16.6274725404415,13.0364704335629,11.0313364280425,9.19681488888888,13.4792971568246,18.0808287521928,7.30354190357446,10.3550275333657,10.7915835919395,10.7652789178587,19.7760011363579,14.5248912015567,17.3049462676915,16.0910858034689,18.5527890483344,14.2550074689987,16.2329329690953,12.8482901582202,11.2598311793125,11.3697010697193,7.01672671546065,22.6771653543307,6.49726073365269,14.6433984145563,7.90925477604921,11.8116117061629,17.109905863908,15.2824977267432,15.1387822361794,11.4008171053763,14.0984821850573],"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(169,50,38,1)"}},"hoveron":"points","name":"FAIL","legendgroup":"FAIL","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[2002.21230347436,2003.69560094122,2004.78201251756,1998.29309741128,1996.6504160149,1987.04558758065,1994.18090435471,2007.94503715802,2012.61096158959,2002.66487087682,2011.68969442584,2006.20409321748,2008.26700872444,2001.30087301191,1994.75742775649,1988.39373305961,2011.60743329376,2005.63382055685,1994.62720065266,1974.09501900524,1993.80776246972,1998.70714191366,1991.02095882483,2005.74247271251,1999.14442567304],"y":[3.22673323750496,3.32336914785206,3.53313378714025,3.56452260276303,3.61140111625195,3.60993769736961,3.67050700059161,3.79037666963413,3.91631604488939,4.13603360073641,4.13994213014841,4.0935519358702,4.23146485432982,4.33094866003841,4.39710869504139,4.43153640935197,4.47888411192223,4.47899052202702,9.19806973204017,9.09921085651964,9.01516568953171,8.70741516949609,8.58407641921192,8.62838274072856,8.49018018757925],"text":["year: 2002<br />imdb_rating: 3.2<br />binary: PASS<br />budget_2013:  15542151<br />Crossroads","year: 2004<br />imdb_rating: 3.3<br />binary: PASS<br />budget_2013: 123319288<br />Catwoman","year: 2005<br />imdb_rating: 3.5<br />binary: PASS<br />budget_2013:  21474596<br />The Fog","year: 1998<br />imdb_rating: 3.6<br />binary: PASS<br />budget_2013:  85747939<br />The Avengers","year: 1997<br />imdb_rating: 3.6<br />binary: PASS<br />budget_2013:  43537144<br />Mortal Kombat: Annihilation","year: 1987<br />imdb_rating: 3.6<br />binary: PASS<br />budget_2013:  34856756<br />Superman IV: The Quest for Peace","year: 1994<br />imdb_rating: 3.7<br />binary: PASS<br />budget_2013:  55008264<br />Street Fighter","year: 2008<br />imdb_rating: 3.8<br />binary: PASS<br />budget_2013:  19480614<br />Prom Night","year: 2013<br />imdb_rating: 3.9<br />binary: PASS<br />budget_2013:   4000000<br />The Last Exorcism Part II","year: 2003<br />imdb_rating: 4.1<br />binary: PASS<br />budget_2013:  50643478<br />Spy Kids 3-D: Game Over","year: 2012<br />imdb_rating: 4.1<br />binary: PASS<br />budget_2013:   1014639<br />The Devil Inside","year: 2006<br />imdb_rating: 4.1<br />binary: PASS<br />budget_2013:  40452872<br />Zoom","year: 2008<br />imdb_rating: 4.2<br />binary: PASS<br />budget_2013:  11904819<br />High School Musical 3: Senior Year","year: 2001<br />imdb_rating: 4.3<br />binary: PASS<br />budget_2013:  18421843<br />Jason X","year: 1995<br />imdb_rating: 4.4<br />binary: PASS<br />budget_2013:  61151178<br />Showgirls","year: 1988<br />imdb_rating: 4.4<br />binary: PASS<br />budget_2013:  18711647<br />Poltergeist III","year: 2012<br />imdb_rating: 4.5<br />binary: PASS<br />budget_2013:   5073193<br />Paranormal Activity 4","year: 2006<br />imdb_rating: 4.5<br />binary: PASS<br />budget_2013:  10402167<br />Black Christmas","year: 1995<br />imdb_rating: 9.2<br />binary: PASS<br />budget_2013:  42805825<br />Pride and Prejudice","year: 1974<br />imdb_rating: 9.1<br />binary: PASS<br />budget_2013:  61408439<br />The Godfather: Part II","year: 1994<br />imdb_rating: 9.0<br />binary: PASS<br />budget_2013:  12573318<br />Pulp Fiction","year: 1999<br />imdb_rating: 8.7<br />binary: PASS<br />budget_2013:  90900032<br />The Matrix","year: 1991<br />imdb_rating: 8.6<br />binary: PASS<br />budget_2013:  34216807<br />The Silence of the Lambs","year: 2006<br />imdb_rating: 8.6<br />binary: PASS<br />budget_2013:   6125721<br />Rang De Basanti","year: 1999<br />imdb_rating: 8.5<br />binary: PASS<br />budget_2013:  20976930<br />American Beauty"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(35,124,58,1)","opacity":1,"size":[8.09941248372894,16.313768519063,8.90612144101084,14.2123932607439,11.1702344185457,10.3728652243157,12.1076633840812,8.64990566232598,5.73780844112365,11.7639519814144,3.77952755905512,10.8971554736423,7.51972118402244,8.50821997930134,12.5686551977476,8.54742033609154,6.06282358591385,7.25210691645731,11.1064046236461,12.5874348510566,7.6328083552593,14.5248912015567,10.3102282186937,6.34184528435248,8.84338822849114],"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(35,124,58,1)"}},"hoveron":"points","name":"PASS","legendgroup":"PASS","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":40.8401826484018,"r":7.30593607305936,"b":37.2602739726027,"l":31.4155251141553},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"title":{"text":"Bechdel test with respect to the IMDB ratings (bubble size = budget)","font":{"color":"rgba(0,0,0,1)","family":"","size":17.5342465753425},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[1969.92025520959,2014.64385236959],"tickmode":"array","ticktext":["1970","1980","1990","2000","2010"],"tickvals":[1970,1980,1990,2000,2010],"categoryorder":"array","categoryarray":["1970","1980","1990","2000","2010"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y","title":{"text":"Year","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[1.73683592140488,9.69246700387635],"tickmode":"array","ticktext":["2","4","6","8"],"tickvals":[2,4,6,8],"categoryorder":"array","categoryarray":["2","4","6","8"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"x","title":{"text":"IMDB rating","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.689497716895},"title":{"text":"binary<br />budget_2013","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"7b2119771c41":{"x":{},"y":{},"colour":{},"size":{},"text":{},"type":"scatter"}},"cur_data":"7b2119771c41","visdat":{"7b2119771c41":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+
+- First 30 and Last 30 in IMDB ratings were chosen
+
+]
+]
+
+---
+
+&lt;style type="text/css"&gt;
+.fail-font{
+  font-weight: bold;
+  font-style: italic;
+  font-size: 1.5em;
+  color: darkred;
+}
+
+.pass-font{
+  font-weight: bold;
+  font-style: italic;
+  font-size: 1.5em;
+  color: darkgreen;
+}
+&lt;/style&gt;
+
+
+### The trend of Bechdel Test Results
+
+.panelset[
+
+.panel[.panel-name[By Number]
+
+&lt;img src= "plots/animation.gif"&gt;
+
+
+
+]
+
+.panel[.panel-name[Explanations]
+
+
+### Result of the Bechdel test with 5 levels
+
+- .fail-font[dubious]    
+  the topic the conversation between the women in the picture was dubious
+    
+- .fail-font[men]  
+  the women in the picture only talked about men
+  
+- .fail-font[notalk]    
+  the women in the picture did not talk to each other
+
+- .fail-font[nowomen]    
+  there was less than 2 named women in the picture
+  
+- .pass-font[ok]   
+  passed the test
+  
+]
+
+.panel[.panel-name[By percentage]
+
+<div id="htmlwidget-9f6bfc6ab41747cc5f34" style="width:100%;height:90%;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-9f6bfc6ab41747cc5f34">{"x":{"data":[{"orientation":"v","width":[4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5],"base":[0.238095238095238,0.272727272727273,0.224137931034483,0.343283582089552,0.366666666666667,0.461538461538462,0.505681818181818,0.473360655737705,0.449771689497717],"x":[1970,1975,1980,1985,1990,1995,2000,2005,2010],"y":[0.761904761904762,0.727272727272727,0.775862068965517,0.656716417910448,0.633333333333333,0.538461538461538,0.494318181818182,0.526639344262295,0.550228310502283],"text":["five_year: 1970<br />prop: 0.7619048<br />binary: FAIL","five_year: 1975<br />prop: 0.7272727<br />binary: FAIL","five_year: 1980<br />prop: 0.7758621<br />binary: FAIL","five_year: 1985<br />prop: 0.6567164<br />binary: FAIL","five_year: 1990<br />prop: 0.6333333<br />binary: FAIL","five_year: 1995<br />prop: 0.5384615<br />binary: FAIL","five_year: 2000<br />prop: 0.4943182<br />binary: FAIL","five_year: 2005<br />prop: 0.5266393<br />binary: FAIL","five_year: 2010<br />prop: 0.5502283<br />binary: FAIL"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(180,76,75,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"FAIL","legendgroup":"FAIL","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5],"base":[0,0,0,0,0,0,0,0,0],"x":[1970,1975,1980,1985,1990,1995,2000,2005,2010],"y":[0.238095238095238,0.272727272727273,0.224137931034483,0.343283582089552,0.366666666666667,0.461538461538462,0.505681818181818,0.473360655737705,0.449771689497717],"text":["five_year: 1970<br />prop: 0.2380952<br />binary: PASS","five_year: 1975<br />prop: 0.2727273<br />binary: PASS","five_year: 1980<br />prop: 0.2241379<br />binary: PASS","five_year: 1985<br />prop: 0.3432836<br />binary: PASS","five_year: 1990<br />prop: 0.3666667<br />binary: PASS","five_year: 1995<br />prop: 0.4615385<br />binary: PASS","five_year: 2000<br />prop: 0.5056818<br />binary: PASS","five_year: 2005<br />prop: 0.4733607<br />binary: PASS","five_year: 2010<br />prop: 0.4497717<br />binary: PASS"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(108,151,108,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"PASS","legendgroup":"PASS","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1965.525,2014.475],"y":[0.5,0.5],"text":"yintercept: 0.5","type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(0,78,151,1)","dash":"dash"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":23.3059360730594,"r":7.30593607305936,"b":37.2602739726027,"l":48.9497716894977},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[1965.525,2014.475],"tickmode":"array","ticktext":["1970","1980","1990","2000","2010"],"tickvals":[1970,1980,1990,2000,2010],"categoryorder":"array","categoryarray":["1970","1980","1990","2000","2010"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y","title":{"text":"Year","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-0.05,1.05],"tickmode":"array","ticktext":["0%","20%","40%","60%","80%","100%"],"tickvals":[0,0.2,0.4,0.6,0.8,1],"categoryorder":"array","categoryarray":["0%","20%","40%","60%","80%","100%"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"x","title":{"text":"Proportion","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.689497716895},"title":{"text":"Bechdel test","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"7b211e36d812":{"x":{},"y":{},"fill":{},"type":"bar"},"7b2122a3953d":{"yintercept":{}}},"cur_data":"7b211e36d812","visdat":{"7b211e36d812":["function (y) ","x"],"7b2122a3953d":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+
+]
+]
+---
+
+### Regions
+
+.panelset[
+.panel[.panel-name[Leaflet]
+
+
+
+<iframe src="leaflet.html" width="100%" height="400px" scrolling="no" seamless="seamless" frameBorder="0"></iframe>
+
+]
+
+.panel[.panel-name[Analysis]
+
+.pull-left[
+
+
+#### - Include Regions with **&gt;5 data** only 
+
+#### - **Most of the countries failed** the test
+
+#### - **2 out of 3 Indian movies** passed
+
+&lt;img src= "plots/indianmovie.jpeg" width = "42%"&gt; &lt;img src= "plots/indianmovie2.jpeg" width = "40%"&gt; 
+
+]
+
+.pull-right[
+
+
+&lt;table class="table table-striped" style="font-size: 14px; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;color: white !important;background-color: #82C5D2 !important;"&gt; Location &lt;/th&gt;
+   &lt;th style="text-align:center;color: white !important;background-color: #82C5D2 !important;"&gt; FAILURE &lt;/th&gt;
+   &lt;th style="text-align:center;color: white !important;background-color: #82C5D2 !important;"&gt; PASS &lt;/th&gt;
+   &lt;th style="text-align:center;color: white !important;background-color: #82C5D2 !important;"&gt; PASSING RATE (%) &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; India &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 66.67 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Spain &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 60.00 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Germany &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 14 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 53.85 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Finland &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 50.00 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; UK &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 76 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 71 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 48.30 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Canada &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 11 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 47.83 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; France &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 17 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 14 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 45.16 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; USA &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 739 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 563 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 43.24 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Australia &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 42.86 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; New Zealand &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 33.33 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; China &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 25.00 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Ireland &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 25.00 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Hong Kong &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 20.00 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+]
+
+]
+]
+
+---
+
+### Genre
+
+<div id="htmlwidget-93f619ebab7f8020fafb" style="width:90%;height:504px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-93f619ebab7f8020fafb">{"x":{"data":[{"orientation":"h","width":[0.9,0.9,0.9,0.9,0.899999999999999,0.9,0.899999999999999,0.9,0.899999999999999,0.9],"base":[0,0,0,0,0,0,0,0,0,0],"x":[0.291866028708134,0.428571428571429,0.323809523809524,0.432835820895522,0.551181102362205,0.371134020618557,0.53169014084507,0.333333333333333,0.634408602150538,0.230769230769231],"y":[2,6,3,7,9,5,8,4,10,1],"text":["genre1: Action<br />percentage_pass: 0.2918660","genre1: Adventure<br />percentage_pass: 0.4285714","genre1: Animation<br />percentage_pass: 0.3238095","genre1: Biography<br />percentage_pass: 0.4328358","genre1: Comedy<br />percentage_pass: 0.5511811","genre1: Crime<br />percentage_pass: 0.3711340","genre1: Drama<br />percentage_pass: 0.5316901","genre1: Fantasy<br />percentage_pass: 0.3333333","genre1: Horror<br />percentage_pass: 0.6344086","genre1: Mystery<br />percentage_pass: 0.2307692"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(130,197,210,1)","line":{"width":1.88976377952756,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.5,0.5],"y":[0.4,10.6],"text":"yintercept: 0.5","type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(139,0,0,1)","dash":"dash"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":40.8401826484018,"r":7.30593607305936,"b":37.2602739726027,"l":78.1735159817352},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"title":{"text":"The Bechdel test passing rate for Top 10 genres","font":{"color":"rgba(0,0,0,1)","family":"","size":17.5342465753425},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-0.0317204301075269,0.666129032258065],"tickmode":"array","ticktext":["0%","10%","20%","30%","40%","50%","60%"],"tickvals":[0,0.1,0.2,0.3,0.4,0.5,0.6],"categoryorder":"array","categoryarray":["0%","10%","20%","30%","40%","50%","60%"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y","title":{"text":"Percentage of films that pass the Bechdel Test","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.4,10.6],"tickmode":"array","ticktext":["Mystery","Action","Animation","Fantasy","Crime","Adventure","Biography","Drama","Comedy","Horror"],"tickvals":[1,2,3,4,5,6,7,8,9,10],"categoryorder":"array","categoryarray":["Mystery","Action","Animation","Fantasy","Crime","Adventure","Biography","Drama","Comedy","Horror"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"x","title":{"text":"Genre","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.689497716895}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"7b2157a4f993":{"x":{},"y":{},"type":"bar"},"7b21ffd4ed9":{"yintercept":{}}},"cur_data":"7b2157a4f993","visdat":{"7b2157a4f993":["function (y) ","x"],"7b21ffd4ed9":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+
+- Highest passing rate in **Horror movies**
+- Only **horror**, **drama** and **comedy** genre pass
+
+---
+
+### Runtime 
+
+<div id="htmlwidget-869c4fc5e7243f434e5f" style="width:100%;height:504px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-869c4fc5e7243f434e5f">{"x":{"data":[{"x":[63,72,72,75,77,77,271,242,202,201,189,188,187],"y":[2,4,5,7,10,9,20,18,17,16,13,12,11],"text":["runtime:  63<br />reorder(title, runtime): Winnie the Pooh<br />binary: FAIL","runtime:  72<br />reorder(title, runtime): The Jungle Book 2<br />binary: FAIL","runtime:  72<br />reorder(title, runtime): The Princess and the Cobbler<br />binary: FAIL","runtime:  75<br />reorder(title, runtime): The Secret of Kells<br />binary: FAIL","runtime:  77<br />reorder(title, runtime): The Girlfriend Experience<br />binary: FAIL","runtime:  77<br />reorder(title, runtime): Corpse Bride<br />binary: FAIL","runtime: 271<br />reorder(title, runtime): Gettysburg<br />binary: FAIL","runtime: 242<br />reorder(title, runtime): Hamlet<br />binary: FAIL","runtime: 202<br />reorder(title, runtime): Malcolm X<br />binary: FAIL","runtime: 201<br />reorder(title, runtime): The Lord of the Rings: The Return of the King<br />binary: FAIL","runtime: 189<br />reorder(title, runtime): The Green Mile<br />binary: FAIL","runtime: 188<br />reorder(title, runtime): Magnolia<br />binary: FAIL","runtime: 187<br />reorder(title, runtime): King Kong<br />binary: FAIL"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(169,50,38,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(169,50,38,1)"}},"hoveron":"points","name":"FAIL","legendgroup":"FAIL","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[55,69,73,76,265,200,194],"y":[1,3,6,8,19,15,14],"text":["runtime:  55<br />reorder(title, runtime): Pride and Prejudice<br />binary: PASS","runtime:  69<br />reorder(title, runtime): The Land Before Time<br />binary: PASS","runtime:  73<br />reorder(title, runtime): The Powerpuff Girls<br />binary: PASS","runtime:  76<br />reorder(title, runtime): Home on the Range<br />binary: PASS","runtime: 265<br />reorder(title, runtime): Dune<br />binary: PASS","runtime: 200<br />reorder(title, runtime): The Godfather: Part II<br />binary: PASS","runtime: 194<br />reorder(title, runtime): Titanic<br />binary: PASS"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(35,124,58,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(35,124,58,1)"}},"hoveron":"points","name":"PASS","legendgroup":"PASS","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":40.8401826484018,"r":7.30593607305936,"b":37.2602739726027,"l":288.584474885845},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"title":{"text":"Bechdel test results based on runtime","font":{"color":"rgba(0,0,0,1)","family":"","size":17.5342465753425},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[44.2,281.8],"tickmode":"array","ticktext":["50","100","150","200","250"],"tickvals":[50,100,150,200,250],"categoryorder":"array","categoryarray":["50","100","150","200","250"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"y","title":{"text":"Run time (in minutes)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.4,20.6],"tickmode":"array","ticktext":["Pride and Prejudice","Winnie the Pooh","The Land Before Time","The Jungle Book 2","The Princess and the Cobbler","The Powerpuff Girls","The Secret of Kells","Home on the Range","Corpse Bride","The Girlfriend Experience","King Kong","Magnolia","The Green Mile","Titanic","The Godfather: Part II","The Lord of the Rings: The Return of the King","Malcolm X","Hamlet","Dune","Gettysburg"],"tickvals":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],"categoryorder":"array","categoryarray":["Pride and Prejudice","Winnie the Pooh","The Land Before Time","The Jungle Book 2","The Princess and the Cobbler","The Powerpuff Girls","The Secret of Kells","Home on the Range","Corpse Bride","The Girlfriend Experience","King Kong","Magnolia","The Green Mile","Titanic","The Godfather: Part II","The Lord of the Rings: The Return of the King","Malcolm X","Hamlet","Dune","Gettysburg"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"x","title":{"text":"Movie Title","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":"transparent","line":{"color":"rgba(51,51,51,1)","width":0.66417600664176,"linetype":"solid"},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.689497716895},"title":{"text":"binary","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"7b217003810a":{"x":{},"y":{},"colour":{},"type":"scatter"}},"cur_data":"7b217003810a","visdat":{"7b217003810a":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+
+- The test results **not likely affected by runtime**
+
+---
+.panelset[
+.panel[.panel-name[Budget]
+
+<div id="htmlwidget-1ef3cae0531109a96be9" style="width:100%;height:504px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1ef3cae0531109a96be9">{"x":{"data":[{"orientation":"v","width":[4.5,4.5,4.5,4.5,4.5],"base":[0,0,0,0,0],"x":[1967.75,1977.75,1987.75,1997.75,2007.75],"y":[49591135.125,40176528.7977528,62892366.7157895,64669469.8839907,70389641.7634855],"text":["decade: 1970<br />mean_budget: 49591135<br />binary: FAIL","decade: 1980<br />mean_budget: 40176529<br />binary: FAIL","decade: 1990<br />mean_budget: 62892367<br />binary: FAIL","decade: 2000<br />mean_budget: 64669470<br />binary: FAIL","decade: 2010<br />mean_budget: 70389642<br />binary: FAIL"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(180,76,75,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"FAIL","legendgroup":"FAIL","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[4.5,4.5,4.5,4.5,4.5],"base":[0,0,0,0,0],"x":[1972.25,1982.25,1992.25,2002.25,2012.25],"y":[28606200.5,39780994.6111111,47826221.9727891,46150626.9804401,47814683.0203046],"text":["decade: 1970<br />mean_budget: 28606200<br />binary: PASS","decade: 1980<br />mean_budget: 39780995<br />binary: PASS","decade: 1990<br />mean_budget: 47826222<br />binary: PASS","decade: 2000<br />mean_budget: 46150627<br />binary: PASS","decade: 2010<br />mean_budget: 47814683<br />binary: PASS"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(108,151,108,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"PASS","legendgroup":"PASS","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":40.8401826484018,"r":7.30593607305936,"b":37.2602739726027,"l":43.1050228310502},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"title":{"text":"The Bechdel test with respect to the averagte films budget","font":{"color":"rgba(0,0,0,1)","family":"","size":17.5342465753425},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[1963.05,2016.95],"tickmode":"array","ticktext":["1970","1980","1990","2000","2010"],"tickvals":[1970,1980,1990,2000,2010],"categoryorder":"array","categoryarray":["1970","1980","1990","2000","2010"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y","title":{"text":"Bechdel test binary result","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-3519482.08817427,73909123.8516598],"tickmode":"array","ticktext":["0 ","10 ","20 ","30 ","40 ","50 ","60 ","70 "],"tickvals":[0,10000000,20000000,30000000,40000000,50000000,60000000,70000000],"categoryorder":"array","categoryarray":["0 ","10 ","20 ","30 ","40 ","50 ","60 ","70 "],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"x","title":{"text":"Average budget (in million USD)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.689497716895},"title":{"text":"binary","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"7b213e11a9b6":{"x":{},"y":{},"fill":{},"type":"bar"}},"cur_data":"7b213e11a9b6","visdat":{"7b213e11a9b6":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+
+- More investments in **male dominant movies**
+
+]
+
+.panel[.panel-name[ROI]
+
+<div id="htmlwidget-943310ec888904a147b8" style="width:100%;height:504px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-943310ec888904a147b8">{"x":{"data":[{"x":[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],"y":[0.343568895980322,2.92102288407654,1.58845706106475,2.06263188892609,0.816447770739564,1.22227035746222,-0.59493902674541,0.0115711520680561,-1.17320751846169,-1.2630814775849,0.803132084865347,1.4939871158916,0.390677012213736,0.612866348793121,0.737631928920316,1.34677955383913,1.43623115607593,2.7612849081764,0.797418622816913,1.54367380922186,-1.33117142996214,-1.24128521145087,1.0856717765437,0.650444813348395,0.0273111453540096,-0.532609455697532,-4.6542764945434,-1.78881679357564,0.66722487782051,-1.31854871105058,0.697139203747455,2.99596123886965,0.863827164232024,-0.484692048453672,4.21658666014055,-0.0941369217713363,1.98851369525231,-0.096462990691228,1.86595097804206,0.0582689072988281,-0.231181311412572,0.732033454341114,0.52209471340887,-0.465753525970072,0.953734722527804,0.972040745110948,1.14422279449766,-4.3094256162052,0.575958634063079,2.11177365825475,0.996594118883225,1.01531097941765,-0.0981173546021763,0.628136540304022,0.588602808922516,-0.242330864425897,0.20287758671913,3.07238511525057,4.7392315365587,0.216540275597353,0.770174059678926,1.7451748107196,1.71036971645792,-0.381684531783949,1.70444534999777,0.57542993003163,2.25014964725144,-1.34958694465377,0.24861331802806,-2.35688118828188,-0.18517447379035,-1.25019821221525,-1.56143568954872,0.151753352655178,-1.24154673935511,1.5520682858415,2.21651910233986,0.754947584491798,-0.700254079840196,0.236016236133834,0.172088445677134,0.813149967833782,1.2472985906558,1.90838467154739,-0.406277405932353,0.860901241923445,0.104001332504161,0.643314807806773,0.11607216504933,0.713168733897751,-0.506508541451259,1.11507144744025,-2.5869407433487,1.63054583708427,2.2963176291008,0.805894689305535,1.55636602635071,2.41152961605303,1.57321352206615,-0.673386905369576,2.0712560268214,0.32470235528057,4.96445830269379,2.66722821486669,2.42945885019964,-0.354683793756828,0.94543052320256,2.39936173903975,2.91963123352936,2.03173035353252,-2.04284907293143,-1.29198819039549,0.972584378067768,0.975691075371449,1.0726367974943,2.31010149325039,1.34979685336365,1.95146390501513,1.18285063525963,1.81915843799019,2.83331883176306,0.632238427684559,-0.046236659169296,0.848141918657826,5.67234289378788,-0.527343322264141,2.83025263315539,-0.977413359761761,1.33808642064867,0.307502369528591,2.68353026915276,1.40492811496826,0.241736749881836,2.0986148126305,-0.131380817401952,1.19329379365332,1.91839212431563,0.951228775802492,1.42747504949502,1.02230096060948,0.392480761894969],"hoverinfo":"y","type":"box","fillcolor":"rgba(180,76,75,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"name":"FAIL","legendgroup":"FAIL","showlegend":true,"xaxis":"x","yaxis":"y","frame":null},{"x":[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],"y":[1.96109352568978,1.07910413656441,-0.480188728542938,-0.462550251805208,1.20513943391149,1.10536938774236,-0.288495360016312,0.820883033220393,-1.69798547058259,1.7138695644902,0.748584627300858,0.268374833264573,0.313552111454913,0.451125828160564,0.555335820501352,1.82022072193516,-1.81724313447498,1.18520099510689,1.480277084847,-0.0878139805384711,-0.316912635908509,-0.953794709974273,-1.80195680194527,0.257148821220009,2.18100572524674,1.26077859144743,0.432197969867257,1.0142058150442,0.388463276022187,0.166421437986821,0.126821737157742,1.84682243910265,-1.45904720629195,1.13059177024149,0.244546629606525,-0.2026035968202,0.0511565374100607,1.51253097352264,-0.701472996822967,-0.152984878892138,2.04568453918392,-1.25825873632129,0.464224723693741,2.51897093606489,0.135480530334105,-0.106817723915911,-0.265990200609356,0.59121177828446,1.92683550621889,-2.25789111877067,-0.954172691868735,0.425211348448488,1.48178419108402,1.15695778446206,1.5176349878435,-1.09712736372726,0.293003186674499,0.404690413729599,-2.36825738911436,-0.949915448200245,-0.423932931964103,-0.607497375128373,1.22865803467037,-2.15724419927543,0.203619885648676,4.18884552637533,0.263801553784988,-1.106793083425,2.30075575021974,1.15130229335781,-3.38793609210806,0.264095209726569,1.17916737022418,0.756785916053289,1.47096414314251,0.533214593283946,1.35088743180203,0.543316418100092,0.509055141835705,0.623083323233016,1.06668858602999,0.452713925639528,-0.608567231202166,3.27584921450841,-0.0238389272962215,0.0595023806568495,1.48637368630453,0.297748561842798,0.844271062115314,-0.0879937082756403,0.907256699525371,2.10753857969542,1.91285241964827,-2.23511794668382,0.0868243299677197,0.23552969742122,0.672351878374067,1.51794326257162,1.27131911068947,-0.534893131805383,1.25840970486316,-0.728263905277978,0.516333524629358,-2.31756381583485,0.337753074279377,-0.491568527828447,1.55018267972643,1.41315865349462,0.598704908153542,0.910936293291964,1.20147177665093,0.965285424610223,1.71596674967457,6.06498793479969,1.15593671954132,-0.902141752582607,-0.519093539537331,2.16406643379036,-1.74114060842535,1.05555239326968,0.996593299179649,0.354021975474277,1.96375181079899,1.33334291620796,0.736373536164707,0.557098630321849,1.30577467618759,-0.0250300873245184,1.88241726126406,-0.337181673701494,-0.538004248487564,2.60504389607199,1.72191922055411,1.57830130066692,1.43004669251453,0.978480368807124,3.67879169310824,0.402046701387901,-1.64824599781476,2.04017958234744,0.990538751026051,1.90992910946929,1.45603709460909,0.0539081476319845,0.0649531330143384,0.74337176540058,4.8334855809623,0.210372505573589,1.31206855051177,-1.99902270517415,0.191598637530229,0.831559369954132,-0.378625933645467,-2.27823987736503,1.06566653166666,1.63755172620137,0.801199282110583,0.966427814461022,1.40568187923466,0.626340901444525,0.529097758014971,1.52338726432147,2.02714664372114,0.73849901665166,0.347024953268841,0.397875376142147,0.858510293367672,2.08980231242578,2.4445204986666,1.81352278441051,-1.45496691065745,0.731628689515028,0.0199353790661775,1.0387520304658,-1.96319018558435,1.02231558256355,1.95781655123041,1.60531084767826,1.73497828166722,2.78090186440097,2.0035880736838,-1.05989088567855,0.506518845056131,-0.0104787681341241,-0.734831182529465,1.85954181596511,1.208515959422,-0.305093410274886,0.814811633953257,3.38726804214345,-0.566005189501321,1.85357536917772,1.46684966631983,1.76156489210316,-0.9454123731731,0.271198832237894,-0.26339057029465,1.86577592709151,1.28016868535305,2.10528424682186,0.480980623358738,0.945715212449502,0.381792052771056,1.53619910006028,0.966160636068618,0.974435905353578,-0.409875883287484,0.841571384523302,0.365971068686989,1.39877449462771,-0.194665623121035,0.264414474792129,4.73888621440849,4.38000449189129,0.751688385019373,4.44163482122633,0.264507187686558,1.36208742379825,1.0710783556954,0.414584496974292,-0.0502524209006731,0.873444380730754,1.8544555067806,0.879305640435024,0.629585606392258,-0.131518903223825,0.650058443730314,0.800988407402456,0.745814886347758,0.684803103203943,-0.270069198399797,0.229044248004592,0.250588637737573,1.29432317729547,-2.18020241119031,2.15677873761656,0.962867483349882,0.932793587204787,-0.235729407033386,0.660175290741346,-0.303303334770272,3.30092280838938,-0.549693028647142,1.40600698714051,-0.516253348420797,-0.266133652608773,-1.06093680386693,0.847397357742438,0.661508924403355,1.75529947492277,0.816661617723846,0.261034027539763,2.41077967325696,1.71524892282878,1.20907508987166,1.53301235797783,1.59431969041941,0.927210725673657,-1.53184641849144,-0.13994400016537,1.29380752112399,0.619566420549853,1.7495569858238,0.713854322265951,0.598786019295159,1.29268566167668,-0.0378196317857237,1.59741622640331,0.385299352828962,0.768015437393162,0.923420993278791,0.885992620032303,2.06613914699236,0.49887308887721,-0.996498792305334,1.5632697484732,0.975714957660862,1.59138437672468,-1.10430431300237,-2.10471479588809,1.54977211838364,0.938052224083769,2.18179766499896,-1.14756042994287,0.667708785025031,0.50613019297767,0.0878770586905678,-0.300438083889807,1.03572319989545,1.12254604373435,0.374462403095128,0.483111785638331,0.0650490197527165,-0.384253485968962,0.57440673265052,-0.342011839046515,-0.0374833926427238,-0.738415780994779,-0.747943591176211,-0.462114664790062,0.653234474683461,1.35259755525456,1.45924008230904,0.675634506794562,1.18711238640427,2.17886324211806,1.89942439857219,1.48942265191681,1.9656584101865,0.956886212863017,0.279403937369643,0.0376941040113828,0.639796171341628,0.949455503830735,0.787125072915015,1.39283328170656,0.453002558107247,1.44153135604639,1.3535563247421,1.23649771722092,0.224830471293367,0.332236930457243,1.51252604525878,1.93796713851655,-1.72722095014367,0.649191552247498,1.24268304696451,1.26888642063571,-1.01907365794709,0.971335717111173,0.308608695702975,-1.22294963060902,1.9959662569678,0.374735404469904,1.24033189651393,-0.0436669438829933,-0.795565063678759,0.87017886211226,1.27731789467916,0.613382203801236,1.55278615534793,1.08221058394242],"hoverinfo":"y","type":"box","fillcolor":"rgba(180,76,75,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"name":"FAIL","legendgroup":"FAIL","showlegend":false,"xaxis":"x2","yaxis":"y2","frame":null},{"x":[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],"y":[0.809074341299183,1.93591056948945,0.158725888446754,0.318821172694519,0.835972469572262,-0.128067682175268,1.09096842133634,0.909733113514207,1.33393370304396,-0.727646851960271,-0.307864303788459,1.69430498537953,0.736109730456004,-0.829942228522226,1.39532291649061,3.44624226801044,1.62205031267587,-4.4027096247603,1.1094364361236,1.30553246628214,0.333718346955069,0.140533867966408,0.151151778592082,0.75422945329433,0.359239927868871,0.0836253898887272,-2.01866852220615,0.376916394958337,1.1771003411979,-0.35294187290801,-0.165368688994282,0.922099351462141,1.01145183293043,-1.80930644082941,-0.48605552609244,3.37986638500432,0.977208419448508,0.28438242208818,1.08068445784224,0.999062288416136,-0.886420691664405,0.0975173717926004,1.06060588682921,-0.995326958719491,0.609650321844883,-0.348892832747339,1.77066397833966,0.513855211820566,-0.812871600812903,-0.786956170392233,2.37128489247815,3.62140338889056,2.26067893891738,1.17980414048041,1.43947099717269,0.0776917329966897,0.964259835191266,0.393787183650578,1.40279706733624,1.42339291532877,0.645082822794984,-0.0164643082538082,0.598103864356877,-0.219836294959472,0.110250689823857,-1.35700482810953,-0.30087313424736,3.34083145286001,1.51369112711464,2.301473628744,0.894027030332065,1.0732558674848,0.56513487094633,0.864402671939552,1.11802735048055,1.17550082887995,-0.764271543854447,0.213000953099045,0.758043460115567,1.6318860170013,-1.49343425076766,2.02776134556018,0.0218559489661895,0.899665434207844,-0.529451408444733,0.0130483837686733,-0.769818764610393,1.42715844260744,-0.206670937614126,1.45944346231578,-0.305492303213784,0.707368440287262,0.212652494586571,0.498911112083645,0.588218192991737,-0.232623344143688,1.08373693124915,-2.53572354274647,1.12952210525189,0.467783666025549,1.43595436736627,1.08085255235912,-1.04785751905343,-1.85786168734205,0.281271280361116,2.26435242846284,0.660265895030354,-3.57689798536614,0.652145983215999,0.599293797659771,1.350405581208,0.976985721980268,0.523062590604289,0.372215001435787,1.66518412178916,1.44845443054733,1.33266300094147,0.20170538473506,0.895155887245117,1.1551991211753,-0.909893492284184,1.18452525554697,-0.200217864782377,0.510301709649591,1.48543509264177,1.43318868411625,-0.417454793528228,1.22035506789404,0.435468680177531,0.629608985317183,1.94819956965655,0.306703594503572,0.464224722411962,0.0700614441948929,0.505273030771737,0.164350356470882,-0.227642059776752,0.946685636159963,0.467426555929656,-0.590231392032284,-0.248253908032033,1.05734061134538,-0.216250420086818,0.21529027534879,0.32098943732469,1.98829730043083,-0.398211171721888,0.864651900628504,-0.0795890864938086,0.960817824340121,2.74510430500518,-2.28499433978814,1.08035296694521,-0.671231785047437,-0.834090155059849,1.23967668529737,-1.35510458805938,0.814268516483199,-1.03993319699124,0.678822067151828,1.7399398553802,0.251845180271525,-0.279935905792362,1.43595381153591,0.909518326269614,0.215538971730137,-0.883049589638974,0.493394232195467,0.885414228967786,0.389373295598137,2.33014753688184,0.324879963546023,0.779719160328255,-0.392600635815822,0.821538156279494,-0.624518768465798,1.27628445556617,0.99709195657962,1.92706765930615,0.0536280675164796,0.344684986934714,0.187186464004193,-0.492194658711835,0.820468186180575,2.37501053586629,-0.784653919247494,1.40568193075483,2.07659880117704,0.123478675540059,-2.68003528558967,-0.343385496541902,1.53105537843962,-1.06509911410956,0.484972128451744,0.5807137651168,1.13893150856747,1.46297695825333,-0.0122610445668348,-0.242921957126526,-0.0373812182694215,0.42432216865276],"hoverinfo":"y","type":"box","fillcolor":"rgba(180,76,75,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"name":"FAIL","legendgroup":"FAIL","showlegend":false,"xaxis":"x3","yaxis":"y3","frame":null},{"x":[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],"y":[1.29396874025071,3.12458874718514,0.399415125969681,2.23756648172588,0.174787579591789,1.77346769352099,-2.86223609880971,0.0235848863453418,-1.11767502719379,-1.59471561582997,1.21392806605445,-3.66490115629254,2.03603755658038,0.67198439251494,2.04858409060199,6.02304422055844,0.22503082666279,1.80520692460326,1.95568859470666,1.21441062915847,0.826814791670019,0.423400037161226,0.805470594198506,-0.0883019727430761,0.540947384004593,0.967442100244949,-0.355830351200633,-1.97364146892563,1.79318701890916,2.27726728777001,2.17492496534331,-2.2970546717068,1.05720261960347,-0.381469611669708,0.786139022092748,2.73229924853815,1.43119714051038,1.05028356111919,0.517801248804389,0.49333094341088,1.6643499622759,4.08799616434815,3.34322717498735,-0.17039298117754,0.677365710651517,-1.3792126161157,0.775675663941848,0.0689295855905783,0.948342952372874,1.8512308679415,1.65389313231659,1.87449084646012,-0.341204497508868,1.17045869152357,-0.258115974491436,0.181276399905798,-1.55589712369107,0.521374255546229,2.29539546026885,-1.09528448664585,-0.583270035341753,1.68864559853149,-1.07988386217918,1.84291801480576,0.0429156390020985,2.29240125549901,0.679486775430002,-1.31999097198407,2.35484011644589,0.683914917610922,1.10042948934469,0.815749494770536,2.55123790093225,0.99742737606701,1.72641491515069,1.61931696864632,1.53368522740714,-0.484854482338185,2.00417313454939,1.42069578516339,1.41893754845147,1.14144043413742,-2.24466102362065,1.11265835307973,-1.03150110967121,1.66976302713346,1.19951833456273,-0.689704846406666,-1.3570047405059,1.9715000427154,-0.302352302217832,1.94276636187761,2.18701904749355,1.39220564141164,1.66647786968854,1.47019556019524,0.847392253870636,-0.909893488656634,3.24322084203666,2.13298230850735,0.610122660122308,0.478511936740067,-1.88188450140959,-0.902062861801285,2.7368657991053,2.81249669474691,2.39503294632007,2.47271788043886,0.231272480341485,0.837681057896002,0.0325596212862354,0.536202524926536,0.959192236892818,3.07135359623896,3.95834063896803,0.763732633853416,1.68332166525906,2.54837709354369],"hoverinfo":"y","type":"box","fillcolor":"rgba(108,151,108,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"name":"PASS","legendgroup":"PASS","showlegend":true,"xaxis":"x","yaxis":"y","frame":null},{"x":[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],"y":[0.911025949356031,0.515903067369375,1.08305796890816,1.04322200390654,0.030207308735784,-0.311351308715427,-2.46170937690798,0.190039282625337,0.0958714841828453,0.716024924583703,-0.0262440373209789,1.00710571390328,1.24119808166187,0.496235541755692,0.0507029248096362,0.77295276724361,0.922424635475285,1.77024378027469,-1.77948876773458,0.562389262426951,-0.646092218481564,-2.9247922108595,1.30416622021534,1.37338322252574,0.458011638389578,1.35790790185956,1.09307268717361,-1.35838066419245,1.20359046537644,1.25563664413336,0.136611614742621,0.547817607847915,0.0889491322999497,0.0669035636826379,1.763113264715,1.94312642803362,0.436542425382699,0.918595309650008,0.0433712205472908,1.61544594383168,1.61712980722147,-0.0575255996575551,3.1757515215971,0.371795812832478,0.856311178865084,0.433565341318209,0.775998393503371,0.892401308532284,-2.20208836385072,-0.263822040375258,0.735011544013639,1.82804180488561,0.829647843573289,2.08910264005268,0.836013127726952,-0.145718186086469,0.648848954572206,1.31994744552201,0.593048107329255,-0.0588226719678076,0.968849515758863,-0.446858335638535,-0.677197820866475,0.75682031413965,2.27774930110558,1.71046825887298,1.31376470077987,1.65706117664992,2.47765654495601,1.57565931392874,1.18850813530296,1.20597367874415,0.326244753990839,-1.2040791323238,0.326995972113752,1.50837736612778,-0.521711969450893,0.286868646678435,-0.0391391434053829,1.58486896253126,-2.23169020959348,1.10011759001958,-0.195906097833949,0.5335404746133,1.42734676195366,1.6651172283365,1.24727784408321,1.06565294523833,3.46774332159516,1.94150820690931,0.821442977928555,0.749249023473949,0.789966057946015,1.12267611382776,0.81006978725072,1.39768384380671,-0.0314936260037029,-0.0655802082793315,-0.203610781164763,0.859054339531927,1.16740834734858,-1.7012951131477,1.83576759700829,0.174109478205091,2.62549847998124,0.314758141771317,-0.0889265435959336,-0.218192152466323,-0.285448232260988,1.4906764267317,1.25616345999611,0.527757434215182,-2.90953033430964,2.44831802831872,-0.650927548287465,-1.62772788248954,-0.123790496304281,1.4404399459261,-0.211736564489015,0.0929306295615933,1.66901939474909,1.50607507399665,-0.000347405269251359,-0.128494247239233,-0.653954007905084,-0.677589483233022,0.165245866452377,2.11986721090031,0.931057939668464,0.346425272387839,-1.80930636239775,2.09264999778218,1.24212511285502,0.171788317003992,-1.43503520985945,-1.6026451866202,-0.627258305637625,-0.447082218589421,-2.54543748434552,0.771524122874539,1.43888004341185,-0.351298751845682,1.13261538231893,-0.817769539588916,2.04150323721184,0.632448564975513,1.36711650533681,1.6633132313441,-3.53039408577967,0.939207872738537,-0.306546619243994,1.58227122917341,1.16713163282206,-0.105218660695997,-0.371489000651097,1.1995183260816,1.19951833465754,0.98403285727547,1.08817316390191,-1.02038104427619,-3.24618983016342,1.58951837110473,1.15058425999339,0.779141326040642,1.96670485002592,0.688882920961704,1.95056360685624,0.0566179989795463,-1.02585187119611,0.805955444652021,0.267292842962564,0.763140722993218,2.74426414953255,0.460351484858973,2.74717279946224,1.69976701453986,0.534387110696301,-0.497583446155799,0.795097740405475,-0.510429148215574,0.988717292591382,-2.47984581852017,1.45346013443497,-1.00475863214175,0.832617252921218,2.55361389285609,0.991303766168089,1.52454578098295,1.28133496204415,2.59611416602657,0.0247105094363622,1.63478854368016,-1.7042688896012,0.0161402043794754,1.25643110838302,1.8366002649243,1.90715151890776,0.64848073327993,0.456666051498731,0.0446346292032173,1.62264577505371,2.51655311897056,1.69803205282715,1.23853525827376,2.87515158026097,1.76997969683985,0.538070241216928,0.953271117132954,-0.26710661167997,-1.54184096477592,1.52004910854141,-1.65825677140253,1.60318125480434,-0.112795493654153,0.0202022162373874,0.552788611603369,0.90696528444698,1.64586209548687,0.958121913339806,2.43394956554776,-0.0258609789816425,-0.855778956922116,0.821765337322618,1.38967949800367,1.82777896822698,1.50638536586389,0.159042032536672,2.36092365320987,1.44169114566155,0.672614590580629,0.895634410516211,1.16199386160362,0.62972416189494,0.436577225429451,1.57185366785774,1.04973953807764,1.3225549917019,0.623237186237678,0.816113374501903,2.23745481073229,1.45792943769055,2.54174783822374,-0.327651614061693,2.95670245525217,0.606165984968523,2.22529907660829,1.32175580137762,0.139949671640989,0.450446757362398,2.05281471204006,-0.656626996446095,0.728755610670035,0.68252934101155,4.24058554550242,1.12809266460102,0.343278350331712,-0.0501734644519514,0.675672530875742,0.828209507923479,0.765728472562736,1.03201721183248,0.101667564746168,1.05821338288271,1.42820819634799,-3.27051119930188,-1.23911305035284,0.840440897733329,-0.4494559072657,2.11351917435881,-1.03955875753053,1.01366481335501,2.32835871184454,0.0859645086656081,0.36870238986507,-1.4728368367872,-0.522527962743649,0.258086119886774,1.10662713668614,1.91663476932625,-1.55664269384627,-0.62613441491278,1.58799020877989,1.5867673764452,1.9283702094475,2.87825141271418,3.06904480443841,0.867680587197487,2.21112983584034,-0.26018699679041,-0.382795374003161,1.53651115131024,-3.23979218253292,2.42920240129115,1.50655412601273,0.438966090633885,0.868428065749644,0.15764397662973,-0.813399818430912,-2.13020086305447,0.895775999956136,3.03764418616,2.0850948915137,0.634435152320226,1.48696845835137,1.62924321225522,0.972519524785714,1.42457830511,0.117289095060475,-0.165690645283999,1.31980401816358,0.271754416913299,-0.442783657729362,0.893156029674472,1.78283840436705,1.11381346670003,-0.363896212131343,-0.36677472538908,0.94143636907058,0.791956229618576,0.544726565397721,2.58122640632397],"hoverinfo":"y","type":"box","fillcolor":"rgba(108,151,108,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"name":"PASS","legendgroup":"PASS","showlegend":false,"xaxis":"x2","yaxis":"y2","frame":null},{"x":[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],"y":[1.83690206316825,-0.954049114753719,1.65577224924084,0.012121200532332,-2.13020091547046,1.03056799491679,0.606165966751766,2.46582889687794,0.325652551262709,0.521282847909224,-0.413441421990505,1.55382631687859,1.36757034634952,1.7399398539018,0.504763256121951,1.25677476760006,0.15941832222213,1.39882740175979,1.30943504980911,2.1826090519582,0.721625610844555,-0.783342347707708,0.370083137014283,-1.12642542718186,0.208454450561113,0.382037775148592,-0.457462409649103,0.856595669847404,0.630273284593373,0.00956619767752529,-0.0463938950170037,-2.29622963943409,0.817819297407607,1.26236002185166,2.70136168610566,0.596057147756579,1.4740794004804,1.72151342273532,1.29069411425018,-1.32391022149653,0.774081131517612,0.283507872588731,1.44274288693784,0.963694766451507,1.84012105165096,1.37953389257853,0.69208318451443,-1.44614579824203,1.07714150344336,1.10662713706572,1.17128679297278,-3.56545903566402,1.75791863796252,1.16315541829476,1.09887197386866,3.31632072189212,1.33677457999096,1.75512776839352,1.58601582838311,0.334491690268876,2.28489330289375,0.306234785933146,0.382559595340659,1.63586677366741,1.39046963468864,4.61272601986337,0.75131822936512,2.02239272656913,3.07339314761335,1.94775513923165,0.25552697585572,0.140392557975375,0.625493273933615,0.48443137399641,2.21683589370392,2.34085527574431,2.06691390673101,0.256598892394751,1.39593035686641,0.496036119517175,0.163922587714024,1.63504192167383,0.562730126551087,1.49318007518464,1.2332161139778,2.63375324292312,0.928629389510576,-0.0838357387561435,1.42564855548223,1.50973573279674,1.60324337061032,1.47151874016963,1.42845537988939,3.69902700030886,0.40845753917446,0.139771098962787,-0.114998639906077,0.482379921498659,-1.62567641482373,1.43554150801209,2.52356105596226,-0.216280827218965,2.01820424095455,1.98190848583934,0.425980706551065,1.41555865518764,1.51910750793953,0.690900049482328,1.56088749542525,-0.624453194534265,0.19991742460009,-0.109967713775842,3.20902434737981,1.41632770072337,0.272476905689279,3.19794038098133,-0.461821973437719,-0.993986458912085,0.570147502297636,1.92814464662701,1.67436604368512,1.41834695836434,-1.33925079644608,2.14301356654579,0.888212620015742,-0.210258352387185,-1.38752445608023,0.966849137240177,1.89479694409748,0.692756166403589,-0.667048349107047,4.18327962313272,0.981332063229188,0.499704711699241,0.934742078064386,-0.0454949757523857,-0.691100610467796,0.584604882827321,4.06338125186246,-0.647423529648358,-1.78427699073435,-0.18475487366194,0.928864398137158,0.242725746821075,-0.321534435815438,0.742843088325686,0.227999238292423,0.140536287657466,0.529439504489722,0.637860891849585,0.285331307714893,2.08801320166594,3.32220505399356,3.63708767130066,0.216613383134828,-0.197433885114107,2.22873382520715,2.01262128108252,1.82582465682012,-2.35010966655376,1.15814628364513,1.9552627111293,-0.443249141545681,0.249347378469046],"hoverinfo":"y","type":"box","fillcolor":"rgba(108,151,108,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"name":"PASS","legendgroup":"PASS","showlegend":false,"xaxis":"x3","yaxis":"y3","frame":null}],"layout":{"margin":{"t":52.5296803652968,"r":7.30593607305936,"b":37.2602739726027,"l":37.2602739726027},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"title":{"text":"Return of investment by the Bechdel test result over decades","font":{"color":"rgba(0,0,0,1)","family":"","size":17.5342465753425},"x":0,"xref":"paper"},"xaxis":{"domain":[0,0.286682875723972],"automargin":true,"type":"linear","autorange":false,"range":[0.4,2.6],"tickmode":"array","ticktext":["FAIL","PASS"],"tickvals":[1,2],"categoryorder":"array","categoryarray":["FAIL","PASS"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y","title":"","hoverformat":".2f"},"annotations":[{"text":"Bechdel test","x":0.5,"y":0,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"top","annotationType":"axis","yshift":-21.9178082191781},{"text":"Log return","x":0,"y":0.5,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"xref":"paper","yref":"paper","textangle":-90,"xanchor":"right","yanchor":"center","annotationType":"axis","xshift":-21.9178082191781},{"text":"1990","x":0.143341437861986,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(26,26,26,1)","family":"","size":11.689497716895},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"bottom"},{"text":"2000","x":0.5,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(26,26,26,1)","family":"","size":11.689497716895},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"bottom"},{"text":"2010","x":0.856658562138014,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(26,26,26,1)","family":"","size":11.689497716895},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"bottom"}],"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-5.18814253029849,6.55691025631353],"tickmode":"array","ticktext":["-3","0","3","6"],"tickvals":[-3,0,3,6],"categoryorder":"array","categoryarray":["-3","0","3","6"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"x","title":"","hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":0.286682875723972,"y0":0,"y1":1},{"type":"rect","fillcolor":"rgba(255,255,255,1)","line":{"color":"rgba(0,0,0,1)","width":1.32835201328352,"linetype":"solid"},"yref":"paper","xref":"paper","x0":0,"x1":0.286682875723972,"y0":0,"y1":23.37899543379,"yanchor":1,"ysizemode":"pixel"},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.379983790942695,"x1":0.620016209057305,"y0":0,"y1":1},{"type":"rect","fillcolor":"rgba(255,255,255,1)","line":{"color":"rgba(0,0,0,1)","width":1.32835201328352,"linetype":"solid"},"yref":"paper","xref":"paper","x0":0.379983790942695,"x1":0.620016209057305,"y0":0,"y1":23.37899543379,"yanchor":1,"ysizemode":"pixel"},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.713317124276028,"x1":1,"y0":0,"y1":1},{"type":"rect","fillcolor":"rgba(255,255,255,1)","line":{"color":"rgba(0,0,0,1)","width":1.32835201328352,"linetype":"solid"},"yref":"paper","xref":"paper","x0":0.713317124276028,"x1":1,"y0":0,"y1":23.37899543379,"yanchor":1,"ysizemode":"pixel"}],"xaxis2":{"type":"linear","autorange":false,"range":[0.4,2.6],"tickmode":"array","ticktext":["FAIL","PASS"],"tickvals":[1,2],"categoryorder":"array","categoryarray":["FAIL","PASS"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":false,"domain":[0.379983790942695,0.620016209057305],"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y2","title":"","hoverformat":".2f"},"yaxis2":{"type":"linear","autorange":false,"range":[-4.01016318680864,6.54475703582865],"tickmode":"array","ticktext":["-4","-2","0","2","4","6"],"tickvals":[-4,-2,0,2,4,6],"categoryorder":"array","categoryarray":["-4","-2","0","2","4","6"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":false,"domain":[0,1],"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"x2","title":"","hoverformat":".2f"},"xaxis3":{"type":"linear","autorange":false,"range":[0.4,2.6],"tickmode":"array","ticktext":["FAIL","PASS"],"tickvals":[1,2],"categoryorder":"array","categoryarray":["FAIL","PASS"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":false,"domain":[0.713317124276028,1],"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y3","title":"","hoverformat":".2f"},"yaxis3":{"type":"linear","autorange":false,"range":[-4.85348140699149,5.06349780209455],"tickmode":"array","ticktext":["-2.5","0.0","2.5","5.0"],"tickvals":[-2.5,0,2.5,5],"categoryorder":"array","categoryarray":["-2.5","0.0","2.5","5.0"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":false,"domain":[0,1],"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"x3","title":"","hoverformat":".2f"},"showlegend":false,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.689497716895}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"7b2159002ba2":{"x":{},"y":{},"fill":{},"text":{},"type":"box"}},"cur_data":"7b2159002ba2","visdat":{"7b2159002ba2":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+
+- Movies **passed** slightly outperformed the **failed**
+
+]]
+
+
+---
+
+### Conclusion &amp; Limitations
+--
+
+1. **More female participation** in the movie but still **low passing rate**
+
+--
+
+2. Female tend to play more important role in **German and Spanish movies**
+
+--
+
+3. Female tend to play relatively important in **horror, comedy and drama** genre movies
+
+--
+
+4.  Investors of Movie industry invested more in the **male dominant movies**
+
+--
+
+5. Movies with **female participation** tend to have **relatively higher profit**
+
+--
+
+6. Results of the test are **not affected by runtime**
+
+--
+
+7. Data **coverage is not enough** 
+
+&lt;img src= "plots/cinderella.png" width = "43%"&gt; &lt;img src= "plots/batman.jpeg" width = "49%"&gt;
+
+---
+# References
+
+- Thomas Mock (2021). Tidy Tuesday: A weekly data project aimed at the R ecosystem. https://github.com/rfordatascience/tidytuesday.
+- Walt Hickey (Apr 1, 2014). FiveThirtyEight: The Dollar-And-Cents Case Against Hollywood’s Exclusion of Women. https://fivethirtyeight.com/features/the-dollar-and-cents-case-against-hollywoods-exclusion-of-women/
+- Wickham et al., (2019). Welcome to the tidyverse. Journal of Open Source Software, 4(43), 1686, https://doi.org/10.21105/joss.01686
+- Antoine Fabri (2020). unglue: Extract Matched Substrings Using a Pattern. R package version 0.1.0. https://CRAN.R-project.org/package=unglue
+- Garrett Grolemund, Hadley Wickham (2011). Dates and Times Made Easy with lubridate. Journal of Statistical Software, 40(3), 1-25. URL https://www.jstatsoft.org/v40/i03/.
+- Hao Zhu (2021). kableExtra: Construct Complex Table with 'kable' and Pipe Syntax. R package version 1.3.4. https://CRAN.R-project.org/package=kableExtra
+- Elin Waring, Michael Quinn, Amelia McNamara, Eduardo Arino de la Rubia, Hao Zhu and Shannon Ellis (2021). skimr: Compact and Flexible Summaries of Data. R package version 2.1.3. https://CRAN.R-project.org/package=skimr
+
+---
+
+- Nicholas Tierney, Di Cook, Miles McBain and Colin Fay (2021). naniar: Data Structures, Summaries, and Visualisations for Missing Data. R package version 0.6.1. https://CRAN.R-project.org/package=naniar
+- Thomas Lin Pedersen (2020). patchwork: The Composer of Plots. R package version 1.1.1. https://CRAN.R-project.org/package=patchwork
+- Stefan Milton Bache and Hadley Wickham (2020). magrittr: A Forward-Pipe Operator for R. R package version 2.0.1. https://CRAN.R-project.org/package=magrittr
+- Winston Chang, (2014). extrafont: Tools for using fonts. R package version 0.17. https://CRAN.R-project.org/package=extrafont
+- Hadley Wickham (2021). tidyr: Tidy Messy Data. R package version 1.1.3. https://CRAN.R-project.org/package=tidyr
+- Claus O. Wilke (2020). ggtext: Improved Text Rendering Support for 'ggplot2'. R package version 0.1.1. https://CRAN.R-project.org/package=ggtext
+- Thomas Lin Pedersen (2021). ggforce: Accelerating 'ggplot2'. R package version 0.3.3. https://CRAN.R-project.org/package=ggforce
+- C. Sievert. Interactive Web-Based Data Visualization with R, plotly, and shiny. Chapman and Hall/CRC Florida, 2020.
+- Thomas Lin Pedersen (2020). patchwork: The Composer of Plots. R package version 1.1.1. https://CRAN.R-project.org/package=patchwork
+- Data downloaded from https://bechdeltest.com
+
+---
+
+&lt;img src= "plots/end.gif"&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "solarized-light",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
